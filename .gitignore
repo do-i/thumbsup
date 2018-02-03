@@ -2,7 +2,7 @@
 target/
 *.iml
 .idea/
-
+out/
 .gradle
 build/
 gradle-app.setting
