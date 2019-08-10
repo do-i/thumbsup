@@ -2,7 +2,6 @@ package com.djd.fun.thumbsup.ui;
 
 import java.awt.CardLayout;
 
-import javax.smartcardio.Card;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 

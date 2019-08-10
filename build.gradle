@@ -6,9 +6,6 @@ apply plugin: 'application'
 
 description = """Java Swing based thumbnail viewer (runs slow as hell)"""
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
 mainClassName = "com.djd.fun.thumbsup.Main"
 
 repositories {
@@ -23,7 +20,7 @@ dependencies {
     compile 'org.swinglabs:swingx:1.6.1'
     compile 'net.coobird:thumbnailator:0.4.8'
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.13.0'
+    testCompile 'org.mockito:mockito-core:3.0.0'
     testCompile 'com.google.truth:truth:0.30'
     testCompile 'com.google.guava:guava-testlib:23.0'
 }
