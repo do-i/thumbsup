@@ -1,4 +1,4 @@
-name: Java CI
+name: java-ci-workflow
 
 on: [push]
 
