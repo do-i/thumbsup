@@ -1,18 +1,16 @@
 package com.djd.fun.thumbsup.models;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import static com.google.common.truth.Truth.assertThat;
 
 import com.djd.fun.thumbsup.testutil.DummyFilesGenerator;
 import com.djd.fun.thumbsup.testutil.MoreMoreResources;
-
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import static com.google.common.truth.Truth.assertThat;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class TreeNodeTest {
 
@@ -22,7 +20,7 @@ public class TreeNodeTest {
   private static Path thirdFile;
   private TreeNode treeNode;
 
-  @BeforeClass
+  @BeforeAll
   public static void setUpOnce() throws IOException {
     testFilesRoot = DummyFilesGenerator.builder()
         .depth(2).numOfFilePerDir(3).fileSuffix(".png")
@@ -32,12 +30,12 @@ public class TreeNodeTest {
     thirdFile = Paths.get(testFilesRoot.toString(), "D-0", "F-2.png");
   }
 
-  @AfterClass
+  @AfterAll
   public static void tearDownOnce() throws IOException {
     MoreMoreResources.deleteRecursively(testFilesRoot);
   }
 
-  @Before
+  @BeforeEach
   public void setUp() {
     treeNode = new TreeNode(Paths.get(testFilesRoot.toString(), "D-0"));
   }

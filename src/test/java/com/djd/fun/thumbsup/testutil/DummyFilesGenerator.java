@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class DummyFilesGenerator {
+
   private static final String TMP_DIR_ROOT_PREFIX = "DummyFilesGenerator";
   private final int depth;
   private final int numOfFilePerDir;
@@ -39,6 +40,7 @@ public class DummyFilesGenerator {
   }
 
   public static class Builder {
+
     private int depth = 2;
     private int numOfFilePerDir = 3;
     private String dirPrefix = "D-";

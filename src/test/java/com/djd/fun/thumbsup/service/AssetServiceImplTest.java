@@ -1,29 +1,27 @@
 package com.djd.fun.thumbsup.service;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Optional;
+import static com.google.common.truth.Truth.assertThat;
 
 import com.djd.fun.thumbsup.models.Asset;
 import com.djd.fun.thumbsup.models.AssetFactory;
 import com.djd.fun.thumbsup.testutil.DummyFilesGenerator;
 import com.djd.fun.thumbsup.testutil.MoreMoreResources;
-
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Optional;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.google.common.truth.Truth.assertThat;
-
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class AssetServiceImplTest extends Mockito {
 
   private static final Logger log = LoggerFactory.getLogger(AssetServiceImplTest.class);
@@ -36,7 +34,7 @@ public class AssetServiceImplTest extends Mockito {
   private @Mock Asset assetAnother;
   private AssetServiceImpl assetService;
 
-  @BeforeClass
+  @BeforeAll
   public static void setUpOnce() throws IOException {
     testFilesRoot = DummyFilesGenerator.builder()
         .depth(1).numOfFilePerDir(3).fileSuffix(".png")
@@ -48,12 +46,12 @@ public class AssetServiceImplTest extends Mockito {
     log.info("tetFileRoot: {}", testFilesRoot);
   }
 
-  @AfterClass
+  @AfterAll
   public static void tearDownOnce() throws IOException {
     MoreMoreResources.deleteRecursively(testFilesRoot);
   }
 
-  @Before
+  @BeforeEach
   public void setUp() {
     assetService = new AssetServiceImpl(assetFactory);
   }
@@ -62,7 +60,7 @@ public class AssetServiceImplTest extends Mockito {
   public void getPreviousAsset_first_empty() {
     when(asset.getFilePath()).thenReturn(firstFile);
     assertThat(assetService.getPreviousAsset(asset)).isEqualTo(Optional.empty());
-    verifyZeroInteractions(assetFactory);
+    verifyNoInteractions(assetFactory);
   }
 
   @Test
@@ -97,6 +95,6 @@ public class AssetServiceImplTest extends Mockito {
   public void getNextAsset_third_empty() {
     when(asset.getFilePath()).thenReturn(thirdFile);
     assertThat(assetService.getNextAsset(asset)).isEqualTo(Optional.empty());
-    verifyZeroInteractions(assetFactory);
+    verifyNoInteractions(assetFactory);
   }
 }

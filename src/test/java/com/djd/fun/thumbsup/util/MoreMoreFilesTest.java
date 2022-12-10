@@ -1,14 +1,11 @@
 package com.djd.fun.thumbsup.util;
 
-import java.nio.file.Paths;
-
-import com.google.common.collect.ImmutableSet;
-
-import org.junit.Test;
-
-import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import com.google.common.collect.ImmutableSet;
+import java.nio.file.Paths;
+import org.junit.jupiter.api.Test;
 
 
 public class MoreMoreFilesTest {

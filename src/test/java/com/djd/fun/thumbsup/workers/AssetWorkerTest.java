@@ -1,23 +1,21 @@
 package com.djd.fun.thumbsup.workers;
 
-import java.awt.Image;
+import static com.google.common.truth.Truth.assertThat;
 
 import com.djd.fun.thumbsup.models.Asset;
 import com.djd.fun.thumbsup.service.ImageService;
 import com.djd.fun.thumbsup.ui.ThumbPanel;
 import com.google.common.eventbus.EventBus;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import java.awt.Image;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-
-import static com.google.common.truth.Truth.assertThat;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class AssetWorkerTest extends Mockito {
 
   private @Mock EventBus eventBus;
@@ -27,7 +25,7 @@ public class AssetWorkerTest extends Mockito {
   private @Mock Image image;
   private AssetWorker assetWorker;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     assetWorker = new AssetWorker(eventBus, imageService, thumbPanel, asset);
   }
