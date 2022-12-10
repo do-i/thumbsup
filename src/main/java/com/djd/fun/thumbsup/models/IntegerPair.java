@@ -3,6 +3,7 @@ package com.djd.fun.thumbsup.models;
 import java.util.Objects;
 
 public class IntegerPair {
+
   protected final int value1;
   protected final int value2;
 
@@ -21,9 +22,12 @@ public class IntegerPair {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof IntegerPair)) return false;
-    IntegerPair that = (IntegerPair)o;
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof IntegerPair that)) {
+      return false;
+    }
     return value1 == that.value1 &&
         value2 == that.value2;
   }

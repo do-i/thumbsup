@@ -1,13 +1,5 @@
 package com.djd.fun.thumbsup.service;
 
-import java.awt.Image;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.concurrent.TimeUnit;
-
-import javax.imageio.ImageIO;
-
 import com.djd.fun.thumbsup.annotations.ImageDefault;
 import com.djd.fun.thumbsup.annotations.ImageFolder;
 import com.djd.fun.thumbsup.annotations.ThumbnailImageBoundSize;
@@ -15,11 +7,15 @@ import com.djd.fun.thumbsup.models.Asset;
 import com.djd.fun.thumbsup.models.ImmutableSize;
 import com.google.common.base.Stopwatch;
 import com.google.inject.Inject;
-
+import java.awt.Image;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.concurrent.TimeUnit;
+import javax.imageio.ImageIO;
+import net.coobird.thumbnailator.Thumbnails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.coobird.thumbnailator.Thumbnails;
 
 public class ImageServiceImpl implements ImageService {
 

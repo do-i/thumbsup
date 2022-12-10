@@ -21,6 +21,7 @@ dependencies {
     implementation("com.google.code.findbugs:jsr305:3.0.2")
     implementation("org.swinglabs:swingx:1.6.1")
     implementation("net.coobird:thumbnailator:0.4.18")
+    implementation("commons-codec:commons-codec:1.15")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
     testImplementation("org.mockito:mockito-core:4.8.0")

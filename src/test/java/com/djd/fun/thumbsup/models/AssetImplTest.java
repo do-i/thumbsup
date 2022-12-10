@@ -25,9 +25,9 @@ public class AssetImplTest extends Mockito {
 
   @BeforeEach
   public void setUp() throws IOException {
-    imageAsset = new AssetImpl(cacheDir, IMAGE_PATH);
+    imageAsset = new AssetImpl(cacheDir, IMAGE_PATH, digestUtils);
     Path dirPath = Files.createTempDirectory("junit");
-    folderAsset = new AssetImpl(cacheDir, dirPath);
+    folderAsset = new AssetImpl(cacheDir, dirPath, digestUtils);
   }
 
   @Test
@@ -63,14 +63,15 @@ public class AssetImplTest extends Mockito {
   @Disabled("TODO Fix possible race condition with path name")
   @Test
   public void compareTo_foldes() throws Exception {
-    AssetImpl otherFolder = new AssetImpl(cacheDir, Files.createTempDirectory("junit4"));
+    AssetImpl otherFolder = new AssetImpl(cacheDir, Files.createTempDirectory("junit4"),
+        digestUtils);
     assertThat(folderAsset).isLessThan(otherFolder);
   }
 
   @Disabled("TODO Fix possible race condition with path name")
   @Test
   public void compareTo_images() throws Exception {
-    AssetImpl otherImage = new AssetImpl(cacheDir, Paths.get("somedir", "test2.jpg"));
+    AssetImpl otherImage = new AssetImpl(cacheDir, Paths.get("somedir", "test2.jpg"), digestUtils);
     assertThat(imageAsset).isLessThan(otherImage);
   }
 

@@ -1,13 +1,12 @@
 package com.djd.fun.thumbsup.service;
 
-import java.nio.file.Path;
-import java.util.Iterator;
-import java.util.Optional;
-
 import com.djd.fun.thumbsup.models.Asset;
 import com.djd.fun.thumbsup.models.AssetFactory;
 import com.djd.fun.thumbsup.util.MoreMoreFiles;
 import com.google.inject.Inject;
+import java.nio.file.Path;
+import java.util.Iterator;
+import java.util.Optional;
 
 public class AssetServiceImpl implements AssetService {
 

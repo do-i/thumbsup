@@ -1,17 +1,7 @@
 package com.djd.fun.thumbsup.ui;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Optional;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-
-import javax.annotation.Nullable;
-import javax.swing.JPanel;
+import static java.awt.event.KeyEvent.VK_LEFT;
+import static java.awt.event.KeyEvent.VK_RIGHT;
 
 import com.djd.fun.thumbsup.annotations.Experiment;
 import com.djd.fun.thumbsup.events.BackToThumbsViewEvent;
@@ -25,16 +15,22 @@ import com.google.common.cache.LoadingCache;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Optional;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import javax.annotation.Nullable;
+import javax.swing.JPanel;
 import net.coobird.thumbnailator.Thumbnailator;
 import net.coobird.thumbnailator.filters.Flip;
 import net.coobird.thumbnailator.filters.Rotation;
-
-import static java.awt.event.KeyEvent.VK_LEFT;
-import static java.awt.event.KeyEvent.VK_RIGHT;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BigImagePanel extends JPanel {
 
@@ -77,7 +73,8 @@ public class BigImagePanel extends JPanel {
       int panelHeight = getHeight();
       int targetWidth = Math.min(bufferedImage.getWidth(), panelWidth);
       int targetHeight = Math.min(bufferedImage.getHeight(), panelHeight);
-      BufferedImage scaledImage = Thumbnailator.createThumbnail(bufferedImage, targetWidth, targetHeight);
+      BufferedImage scaledImage = Thumbnailator.createThumbnail(bufferedImage, targetWidth,
+          targetHeight);
       log.info("resizing bufferedImage took: {}ms", stopwatch.elapsed(TimeUnit.MILLISECONDS));
       super.paintComponent(g);
       int scaledWidth = scaledImage.getWidth();
@@ -91,7 +88,7 @@ public class BigImagePanel extends JPanel {
       if (scaledHeight < panelHeight) {
         pointY = (panelHeight - scaledHeight) / 2;
       }
-      ((Graphics2D)g).drawImage(scaledImage, pointX, pointY, null);
+      g.drawImage(scaledImage, pointX, pointY, null);
       g.dispose();
     }
   }
@@ -101,8 +98,10 @@ public class BigImagePanel extends JPanel {
       try {
         ImageFile imageFile = imageCache.get(asset);
         Stopwatch stopwatch = Stopwatch.createStarted();
-        bufferedImage = imageSourceFactory.createByteInputStreamImageSource(imageFile.getInputStream()).read();
-        log.info("convert cached ImageFile to BufferedImage took: {}ms", stopwatch.elapsed(TimeUnit.MILLISECONDS));
+        bufferedImage = imageSourceFactory.createByteInputStreamImageSource(
+            imageFile.getInputStream()).read();
+        log.info("convert cached ImageFile to BufferedImage took: {}ms",
+            stopwatch.elapsed(TimeUnit.MILLISECONDS));
       } catch (ExecutionException | IOException e) {
         log.warn("Failed to get image from cache", e);
       }

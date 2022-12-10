@@ -34,7 +34,7 @@ public class ImageServiceImplTest extends Mockito {
   public void setUp() throws IOException {
     cacheDir = Files.createTempDirectory("thumbcache").toFile();
     imageService = new ImageServiceImpl(folderImage, defaultImage, THUMB_SIZE);
-    imageAsset = new AssetImpl(cacheDir, IMAGE_PATH);
+    imageAsset = new AssetImpl(cacheDir, IMAGE_PATH, digestUtils);
   }
 
   @AfterEach

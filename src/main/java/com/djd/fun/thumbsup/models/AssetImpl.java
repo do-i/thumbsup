@@ -1,30 +1,32 @@
 package com.djd.fun.thumbsup.models;
 
+import com.djd.fun.thumbsup.annotations.ThumbnailCacheDir;
+import com.djd.fun.thumbsup.util.SizeFormatter;
+import com.google.common.base.MoreObjects;
+import com.google.common.io.MoreFiles;
+import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
-import java.util.Optional;
-
-import com.djd.fun.thumbsup.annotations.ThumbnailCacheDir;
-import com.djd.fun.thumbsup.util.SizeFormatter;
-import com.google.common.base.MoreObjects;
-import com.google.inject.Inject;
-import com.google.inject.assistedinject.Assisted;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.annotation.Nullable;
+import org.apache.commons.codec.digest.DigestUtils;
 
 public class AssetImpl implements Asset, Comparable<Asset> {
 
-  private static final Logger log = LoggerFactory.getLogger(AssetImpl.class);
   private final File cacheDir;
   private final Path path;
+  private final @Nullable Path thumbPath;
 
   @Inject
   public AssetImpl(@ThumbnailCacheDir File cacheDir, @Assisted Path path) {
     this.path = path;
     this.cacheDir = cacheDir;
+    this.thumbPath = getFileType() == FileType.IMAGE
+        ? Paths.get(cacheDir.toString(),
+        DigestUtils.sha1Hex(path.toString()) + "." + MoreFiles.getFileExtension(path))
+        : null;
   }
 
   @Override
@@ -44,10 +46,10 @@ public class AssetImpl implements Asset, Comparable<Asset> {
 
   @Override
   public Path getThumbnailPath() {
-    if (getFileType() != FileType.IMAGE) {
+    if (thumbPath == null) {
       throw new UnsupportedOperationException("Not supported for this file type");
     }
-    return Paths.get(cacheDir.toString(), path.toString());
+    return thumbPath;
   }
 
   @Override
@@ -77,9 +79,12 @@ public class AssetImpl implements Asset, Comparable<Asset> {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof AssetImpl)) return false;
-    AssetImpl asset = (AssetImpl)o;
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof AssetImpl asset)) {
+      return false;
+    }
     return Objects.equals(path, asset.path) &&
         Objects.equals(cacheDir, asset.cacheDir);
   }

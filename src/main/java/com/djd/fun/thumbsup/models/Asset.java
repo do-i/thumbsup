@@ -1,14 +1,13 @@
 package com.djd.fun.thumbsup.models;
 
+import com.djd.fun.thumbsup.util.MoreMoreFiles;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Optional;
-
-import com.djd.fun.thumbsup.util.MoreMoreFiles;
 
 // represents either File or Folder
 public interface Asset {
+
   enum FileType {
     FOLDER, IMAGE, UNSUPPORTED;
 

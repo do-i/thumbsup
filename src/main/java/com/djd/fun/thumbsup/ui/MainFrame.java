@@ -1,12 +1,10 @@
 package com.djd.fun.thumbsup.ui;
 
+import com.djd.fun.thumbsup.util.Fonts;
+import com.google.inject.Inject;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
-
-import com.djd.fun.thumbsup.util.Fonts;
-import com.google.inject.Inject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

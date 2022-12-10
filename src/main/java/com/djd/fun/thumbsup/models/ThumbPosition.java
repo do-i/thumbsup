@@ -1,21 +1,17 @@
 package com.djd.fun.thumbsup.models;
 
-import java.awt.Component;
-import java.util.HashMap;
-
-import javax.annotation.Nullable;
-
 import com.djd.fun.thumbsup.ui.ThumbViewPanel;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.Maps;
-
+import java.awt.Component;
+import java.util.HashMap;
+import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Mutable class maintain current selected thumb
- * Also, provides a helper method to translate x,y thumbViewPanel position to row,col index system
- * This allows arrow key navigation
+ * Mutable class maintain current selected thumb Also, provides a helper method to translate x,y
+ * thumbViewPanel position to row,col index system This allows arrow key navigation
  */
 public class ThumbPosition {
 
@@ -24,7 +20,7 @@ public class ThumbPosition {
   private static final int UNKNOWN_DELTA = 2;
   // TODO this number should be mutated based on thumbViewSize
   private static final IntegerPair WRAP_LAYOUT_GAP = new IntegerPair(7, 2);
-  private HashMap<IntegerPair, Component> positionToCompo = Maps.newHashMap();
+  private final HashMap<IntegerPair, Component> positionToCompo = Maps.newHashMap();
   private int maxRowIndex;
   private int maxColIndex;
   private int curRowIndex;
@@ -44,7 +40,8 @@ public class ThumbPosition {
   public void add(ImmutableSize imageViewSize, Component compo) {
     if (compo instanceof ThumbViewPanel) {
       int col = (compo.getX() - WRAP_LAYOUT_GAP.getValue1()) / imageViewSize.getWidth();
-      int row = (compo.getY() - WRAP_LAYOUT_GAP.getValue2()) / (imageViewSize.getHeight() + UNKNOWN_DELTA);
+      int row = (compo.getY() - WRAP_LAYOUT_GAP.getValue2()) / (imageViewSize.getHeight()
+          + UNKNOWN_DELTA);
       maxRowIndex = Math.max(maxRowIndex, row);
       maxColIndex = Math.max(maxColIndex, col);
       IntegerPair position = new IntegerPair(row, col);
@@ -61,11 +58,8 @@ public class ThumbPosition {
   }
 
   /**
-   * Empty all previously added {@link Component}s
-   * Set 0 to {@link this#maxRowIndex}
-   * Set 0 to {@link this#maxColIndex}
-   * Set 0 to {@link this#curRowIndex}
-   * Set 0 to {@link this#curColIndex}
+   * Empty all previously added {@link Component}s Set 0 to {@link this#maxRowIndex} Set 0 to
+   * {@link this#maxColIndex} Set 0 to {@link this#curRowIndex} Set 0 to {@link this#curColIndex}
    */
   public void reset() {
     maxRowIndex = 0;
@@ -98,8 +92,9 @@ public class ThumbPosition {
   }
 
   public void moveRight() {
-    if (curColIndex < maxColIndex && isValidMove(curRowIndex, curColIndex + 1))
+    if (curColIndex < maxColIndex && isValidMove(curRowIndex, curColIndex + 1)) {
       curColIndex++;
+    }
   }
 
   @Override

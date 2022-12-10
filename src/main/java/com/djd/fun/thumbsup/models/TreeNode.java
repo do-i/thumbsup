@@ -1,9 +1,8 @@
 package com.djd.fun.thumbsup.models;
 
-import java.nio.file.Path;
-
 import com.djd.fun.thumbsup.util.MoreMoreFiles;
 import com.google.common.collect.ImmutableSortedSet;
+import java.nio.file.Path;
 
 /**
  * This immutable model class represents a node in the {@link javax.swing.JTree}

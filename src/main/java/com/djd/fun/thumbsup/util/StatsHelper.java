@@ -1,16 +1,15 @@
 package com.djd.fun.thumbsup.util;
 
+import static com.djd.fun.thumbsup.util.SizeFormatter.humanReadableByteCount;
+
 import com.djd.fun.thumbsup.annotations.Experiment;
 import com.djd.fun.thumbsup.models.Asset;
 import com.djd.fun.thumbsup.models.ImageFile;
 import com.google.common.cache.CacheStats;
 import com.google.common.cache.LoadingCache;
 import com.google.inject.Inject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static com.djd.fun.thumbsup.util.SizeFormatter.humanReadableByteCount;
 
 public class StatsHelper {
 

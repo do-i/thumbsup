@@ -1,18 +1,15 @@
 package com.djd.fun.thumbsup.ui;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
-
-import javax.annotation.Nullable;
-import javax.swing.JPanel;
-
 import com.djd.fun.thumbsup.models.Asset;
 import com.djd.fun.thumbsup.models.ImmutableSize;
 import com.djd.fun.thumbsup.models.ThumbViewSize;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.annotation.Nullable;
+import javax.swing.JPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

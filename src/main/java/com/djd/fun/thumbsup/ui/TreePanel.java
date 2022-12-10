@@ -1,17 +1,5 @@
 package com.djd.fun.thumbsup.ui;
 
-import java.nio.file.Path;
-
-import javax.swing.JTree;
-import javax.swing.event.TreeExpansionEvent;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.event.TreeWillExpandListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.ExpandVetoException;
-import javax.swing.tree.TreeSelectionModel;
-
 import com.djd.fun.thumbsup.annotations.InitialDir;
 import com.djd.fun.thumbsup.events.tree.TreeNodeSelectEvent;
 import com.djd.fun.thumbsup.models.Asset;
@@ -21,7 +9,16 @@ import com.djd.fun.thumbsup.util.Enumerations;
 import com.djd.fun.thumbsup.util.Fonts;
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
-
+import java.nio.file.Path;
+import javax.swing.JTree;
+import javax.swing.event.TreeExpansionEvent;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.event.TreeWillExpandListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.ExpandVetoException;
+import javax.swing.tree.TreeSelectionModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,7 +65,7 @@ public class TreePanel extends JTree {
   }
 
   private void addChildren(DefaultMutableTreeNode currentNode) {
-    TreeNode currentTreeNode = (TreeNode)currentNode.getUserObject();
+    TreeNode currentTreeNode = (TreeNode) currentNode.getUserObject();
     currentTreeNode.getFolders().stream()
         .map(TreeNode::new)
         .map(DefaultMutableTreeNode::new)
@@ -77,14 +74,17 @@ public class TreePanel extends JTree {
 
   private class MyTreeWillExpandListener implements TreeWillExpandListener {
 
-    @Override public void treeWillExpand(TreeExpansionEvent event) throws ExpandVetoException {
+    @Override
+    public void treeWillExpand(TreeExpansionEvent event) throws ExpandVetoException {
       log.info("treeWillExpand");
-      DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)event.getPath().getLastPathComponent();
+      DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode) event.getPath()
+          .getLastPathComponent();
       Enumerations.stream(currentNode.children())
-          .forEach(n -> TreePanel.this.addChildren((DefaultMutableTreeNode)n));
+          .forEach(n -> TreePanel.this.addChildren((DefaultMutableTreeNode) n));
     }
 
-    @Override public void treeWillCollapse(TreeExpansionEvent event) throws ExpandVetoException {
+    @Override
+    public void treeWillCollapse(TreeExpansionEvent event) throws ExpandVetoException {
       log.info("treeWillCollapse");
     }
   }
@@ -99,8 +99,8 @@ public class TreePanel extends JTree {
   }
 
   private Asset createAsset(TreeSelectionEvent event) {
-    DefaultMutableTreeNode node = (DefaultMutableTreeNode)event.getPath().getLastPathComponent();
-    TreeNode treeNode = (TreeNode)node.getUserObject();
+    DefaultMutableTreeNode node = (DefaultMutableTreeNode) event.getPath().getLastPathComponent();
+    TreeNode treeNode = (TreeNode) node.getUserObject();
     return assetFactory.createAsset(treeNode.getDir());
   }
 

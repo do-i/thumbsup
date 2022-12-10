@@ -1,24 +1,15 @@
 package com.djd.fun.thumbsup.ui;
 
-import java.awt.Component;
-import java.awt.LayoutManager;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.rmi.UnexpectedException;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.SwingWorker;
-import javax.swing.border.Border;
-import javax.swing.event.MouseInputAdapter;
+import static com.djd.fun.thumbsup.util.MoreMoreFiles.FOLDER_OR_IMAGE;
+import static java.awt.event.KeyEvent.VK_DOWN;
+import static java.awt.event.KeyEvent.VK_ENTER;
+import static java.awt.event.KeyEvent.VK_K;
+import static java.awt.event.KeyEvent.VK_LEFT;
+import static java.awt.event.KeyEvent.VK_P;
+import static java.awt.event.KeyEvent.VK_R;
+import static java.awt.event.KeyEvent.VK_RIGHT;
+import static java.awt.event.KeyEvent.VK_U;
+import static java.awt.event.KeyEvent.VK_UP;
 
 import com.djd.fun.thumbsup.annotations.BorderSelected;
 import com.djd.fun.thumbsup.annotations.BorderUnselected;
@@ -40,20 +31,23 @@ import com.google.common.collect.Lists;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
-
+import java.awt.Component;
+import java.awt.LayoutManager;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.SwingWorker;
+import javax.swing.border.Border;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static com.djd.fun.thumbsup.util.MoreMoreFiles.FOLDER_OR_IMAGE;
-import static java.awt.event.KeyEvent.VK_DOWN;
-import static java.awt.event.KeyEvent.VK_ENTER;
-import static java.awt.event.KeyEvent.VK_K;
-import static java.awt.event.KeyEvent.VK_LEFT;
-import static java.awt.event.KeyEvent.VK_P;
-import static java.awt.event.KeyEvent.VK_R;
-import static java.awt.event.KeyEvent.VK_RIGHT;
-import static java.awt.event.KeyEvent.VK_U;
-import static java.awt.event.KeyEvent.VK_UP;
 
 public class ThumbsPanel extends JPanel {
 
@@ -66,8 +60,8 @@ public class ThumbsPanel extends JPanel {
   private final Border unselectedBorder;
   private final Border selectedBorder;
   private Path currentDir;
-  private ThumbPosition thumbPosition;
-  private List<SwingWorker> workers;
+  private final ThumbPosition thumbPosition;
+  private final List<SwingWorker> workers;
 
   @Inject
   public ThumbsPanel(EventBus eventBus,
@@ -99,6 +93,7 @@ public class ThumbsPanel extends JPanel {
 
   /**
    * Set focus on to this panel so that keyEvent will send to this listener
+   *
    * @param event
    */
   @Subscribe
@@ -156,14 +151,14 @@ public class ThumbsPanel extends JPanel {
   }
 
   private void addBorder(Component component) {
-    JComponent selected = ((JComponent)component);
+    JComponent selected = ((JComponent) component);
     if (selected != null) {
       selected.setBorder(selectedBorder);
     }
   }
 
   private void removeBorder(Component component) {
-    JComponent selected = ((JComponent)component);
+    JComponent selected = ((JComponent) component);
     if (selected != null) {
       selected.setBorder(unselectedBorder);
     }
@@ -218,7 +213,7 @@ public class ThumbsPanel extends JPanel {
           break;
         case VK_ENTER:
           // TODO Is there a better way to access Asset instance without getting it from ThumbViewPanel??
-          ThumbViewPanel thumbViewPanel = (ThumbViewPanel)thumbPosition.getComponent();
+          ThumbViewPanel thumbViewPanel = (ThumbViewPanel) thumbPosition.getComponent();
           if (thumbViewPanel != null) {
             Asset asset = thumbViewPanel.getAsset();
             if (asset.getFileType() == Asset.FileType.IMAGE) {

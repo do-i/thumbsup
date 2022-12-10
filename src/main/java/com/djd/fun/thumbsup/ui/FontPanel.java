@@ -1,24 +1,19 @@
 package com.djd.fun.thumbsup.ui;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsEnvironment;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.RenderingHints;
-import java.util.stream.Stream;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import com.djd.fun.thumbsup.annotations.PanelBackgroundColor;
 import com.djd.fun.thumbsup.annotations.PanelForegroundColor;
 import com.djd.fun.thumbsup.util.Fonts;
 import com.google.inject.Inject;
-
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.util.stream.Stream;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +21,7 @@ public class FontPanel extends JPanel {
 
   private static final Logger log = LoggerFactory.getLogger(FontPanel.class);
   private final Color fgColor;
-  private GridBagConstraints constraints = new GridBagConstraints();
+  private final GridBagConstraints constraints = new GridBagConstraints();
 
   @Inject
   public FontPanel(@PanelBackgroundColor Color bgColor, @PanelForegroundColor Color fgColor) {

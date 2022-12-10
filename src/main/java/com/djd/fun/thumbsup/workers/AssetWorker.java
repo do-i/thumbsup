@@ -1,10 +1,5 @@
 package com.djd.fun.thumbsup.workers;
 
-import java.awt.Image;
-import java.util.concurrent.ExecutionException;
-
-import javax.swing.SwingWorker;
-
 import com.djd.fun.thumbsup.events.PreloadImageEvent;
 import com.djd.fun.thumbsup.models.Asset;
 import com.djd.fun.thumbsup.service.ImageService;
@@ -12,7 +7,9 @@ import com.djd.fun.thumbsup.ui.ThumbPanel;
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-
+import java.awt.Image;
+import java.util.concurrent.ExecutionException;
+import javax.swing.SwingWorker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

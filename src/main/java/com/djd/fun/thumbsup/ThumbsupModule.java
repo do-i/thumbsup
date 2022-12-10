@@ -1,30 +1,5 @@
 package com.djd.fun.thumbsup;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Image;
-import java.awt.LayoutManager;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTree;
-import javax.swing.border.Border;
-import javax.swing.border.EtchedBorder;
-
-import com.djd.fun.thumbsup.annotations.AlphaCacheLoader;
 import com.djd.fun.thumbsup.annotations.BorderSelected;
 import com.djd.fun.thumbsup.annotations.BorderUnselected;
 import com.djd.fun.thumbsup.annotations.Experiment;
@@ -65,7 +40,6 @@ import com.djd.fun.thumbsup.ui.MainPanel;
 import com.djd.fun.thumbsup.ui.ThumbPanelFactory;
 import com.djd.fun.thumbsup.ui.ThumbsPanel;
 import com.djd.fun.thumbsup.ui.TreePanel;
-import com.djd.fun.thumbsup.util.StatsHelper;
 import com.djd.fun.thumbsup.workers.WorkerFactory;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -84,7 +58,26 @@ import com.google.inject.name.Names;
 import com.google.inject.spi.InjectionListener;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
-
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.LayoutManager;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTree;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -99,7 +92,8 @@ public class ThumbsupModule extends PrivateModule {
     install(new FactoryModuleBuilder().build(WorkerFactory.class));
     install(new FactoryModuleBuilder().build(ThumbPanelFactory.class));
     install(new FactoryModuleBuilder().build(ByteInputStreamImageSourceFactory.class));
-    install(new FactoryModuleBuilder().implement(Asset.class, AssetImpl.class).build(AssetFactory.class));
+    install(new FactoryModuleBuilder().implement(Asset.class, AssetImpl.class)
+        .build(AssetFactory.class));
     bind(CacheHelper.class).to(LoadingCacheHelper.class).asEagerSingleton();
     createAndBindEventBus();
     bind(JPanel.class).to(MainPanel.class).in(Singleton.class);
@@ -113,27 +107,35 @@ public class ThumbsupModule extends PrivateModule {
     expose(JFrame.class);
   }
 
-  @Provides @Singleton @LayoutWrap
+  @Provides
+  @Singleton
+  @LayoutWrap
   private LayoutManager provideWrapLayout() {
     log.info("provideWrapLayout");
     return new WrapLayout(WrapLayout.LEFT, 7, 2);
   }
 
-  @Provides @Singleton @LayoutBorder
+  @Provides
+  @Singleton
+  @LayoutBorder
   private LayoutManager provideBorderLayout() {
     log.info("provideBorderLayout");
     return new BorderLayout();
   }
 
-  @Provides @Singleton
-  private JSplitPane provideJSplitPane(@PanelTree JScrollPane treePanel, @PanelCard JPanel cardPanel) {
+  @Provides
+  @Singleton
+  private JSplitPane provideJSplitPane(@PanelTree JScrollPane treePanel,
+      @PanelCard JPanel cardPanel) {
     JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treePanel, cardPanel);
     splitPane.setResizeWeight(0.12d); // Give 12% of total split pane width for tree view
     splitPane.setOneTouchExpandable(true); // This allows one side of a panel be totally invisible.
     return splitPane;
   }
 
-  @Provides @Singleton @PanelThumbs
+  @Provides
+  @Singleton
+  @PanelThumbs
   private JScrollPane provideScrollThumbsPanel(@PanelThumbs JPanel thumbsPanel,
       @ScrollVertical int verticalScrollUnitIncrement) {
     JScrollPane scrollPane = new JScrollPane(thumbsPanel);
@@ -141,7 +143,9 @@ public class ThumbsupModule extends PrivateModule {
     return scrollPane;
   }
 
-  @Provides @Singleton @PanelTree
+  @Provides
+  @Singleton
+  @PanelTree
   private JScrollPane provideScrollTreePanel(@PanelTree JTree treePanel,
       @ScrollVertical int verticalScrollUnitIncrement) {
     JScrollPane scrollPane = new JScrollPane(treePanel);
@@ -149,22 +153,29 @@ public class ThumbsupModule extends PrivateModule {
     return scrollPane;
   }
 
-  @Provides @Singleton @ScrollVertical
+  @Provides
+  @Singleton
+  @ScrollVertical
   private int provideVerticalScrollUnitIncrement() {
     return 30;
   }
 
-  @Provides @Singleton
+  @Provides
+  @Singleton
   private ThumbViewSize provideThumbSize() {
     return new ThumbViewSize();
   }
 
-  @Provides @Singleton @ThumbnailImageBoundSize
+  @Provides
+  @Singleton
+  @ThumbnailImageBoundSize
   private ImmutableSize provideImmutableSize() {
     return ImmutableSize.of(200, 200);
   }
 
-  @Provides @Singleton @ImageFolder
+  @Provides
+  @Singleton
+  @ImageFolder
   private Image provideFolderImage() {
     try {
       return ImageIO.read(Resources.getResource("folder180.png"));
@@ -174,7 +185,9 @@ public class ThumbsupModule extends PrivateModule {
     }
   }
 
-  @Provides @Singleton @ImageDefault
+  @Provides
+  @Singleton
+  @ImageDefault
   private Image provideDefaultImage() {
     try {
       log.info("provideDefaultImage");
@@ -185,27 +198,37 @@ public class ThumbsupModule extends PrivateModule {
     }
   }
 
-  @Provides @Singleton @BorderSelected
+  @Provides
+  @Singleton
+  @BorderSelected
   private Border provideSelectionBorder() {
     return BorderFactory.createEtchedBorder(Color.RED, Color.PINK);
   }
 
-  @Provides @Singleton @BorderUnselected
+  @Provides
+  @Singleton
+  @BorderUnselected
   private Border provideUnselectionBorder() {
     return BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
   }
 
-  @Provides @Singleton @PanelBackgroundColor
+  @Provides
+  @Singleton
+  @PanelBackgroundColor
   private Color providePanelBackgroundColor() {
     return new Color(0x282C34);
   }
 
-  @Provides @Singleton @PanelForegroundColor
+  @Provides
+  @Singleton
+  @PanelForegroundColor
   private Color providePanelForegroundColor() {
     return new Color(0xFCFCFC);
   }
 
-  @Provides @Singleton @ThumbnailCacheDir
+  @Provides
+  @Singleton
+  @ThumbnailCacheDir
   private File provideCacheDir(@Named(USER_HOME) String userHome) {
     File cacheDir = Paths.get(userHome, "thumbsup").toFile();
     try {
@@ -217,24 +240,32 @@ public class ThumbsupModule extends PrivateModule {
     return cacheDir;
   }
 
-  @Provides @Singleton @UserHomeDir
+  @Provides
+  @Singleton
+  @UserHomeDir
   private Path providesUserHomeDirPath(@Named(USER_HOME) String userHome) {
     log.info("userHome: {}", userHome);
     return Paths.get(userHome);
   }
 
-  @Provides @Singleton @InitialDir
+  @Provides
+  @Singleton
+  @InitialDir
   private Path providesUserHomeImageDirPath(@UserHomeDir Path userHome) {
     log.info("userHome: {}", userHome);
     return userHome;
   }
 
-  @Provides @Singleton @Experiment
+  @Provides
+  @Singleton
+  @Experiment
   private CacheLoader<Asset, ImageFile> provideFileCacheLoader(FileCacheLoader impl) {
     return impl;
   }
 
-  @Provides @Singleton @Experiment
+  @Provides
+  @Singleton
+  @Experiment
   private LoadingCache<Asset, ImageFile> provideFileLoadingCache(
       @Experiment CacheLoader<Asset, ImageFile> imageCacheLoader) {
     return CacheBuilder.newBuilder()
@@ -245,20 +276,21 @@ public class ThumbsupModule extends PrivateModule {
         .build(imageCacheLoader);
   }
 
-  @Provides @Singleton
+  @Provides
+  @Singleton
   private ExecutorService provideExecutorService() {
     return Executors.newFixedThreadPool(2);
   }
 
   /**
-   * https://spin.atomicobject.com/2012/01/13/the-guava-eventbus-on-guice/
-   * This bindListener allows Guice to register all methods that are annotated with @Subscribe
+   * https://spin.atomicobject.com/2012/01/13/the-guava-eventbus-on-guice/ This bindListener allows
+   * Guice to register all methods that are annotated with @Subscribe
    */
   private void createAndBindEventBus() {
     EventBus eventBus = new EventBus("BIG BLU BUS");
     bindListener(Matchers.any(), new TypeListener() {
       public <I> void hear(TypeLiteral<I> typeLiteral, TypeEncounter<I> typeEncounter) {
-        typeEncounter.register((InjectionListener<I>)i -> eventBus.register(i));
+        typeEncounter.register((InjectionListener<I>) i -> eventBus.register(i));
       }
     });
     bind(EventBus.class).toInstance(eventBus);

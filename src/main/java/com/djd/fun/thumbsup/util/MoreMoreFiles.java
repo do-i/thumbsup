@@ -1,24 +1,23 @@
 package com.djd.fun.thumbsup.util;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Collection;
-import java.util.function.Predicate;
-
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSortedSet;
 import com.google.common.collect.Ordering;
 import com.google.common.io.MoreFiles;
-
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Collection;
+import java.util.function.Predicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MoreMoreFiles {
 
   private static final Logger log = LoggerFactory.getLogger(MoreMoreFiles.class);
-  @VisibleForTesting static final ImmutableList<String> IMAGE_EXT = ImmutableList.of("jpg", "png", "jpeg");
+  @VisibleForTesting
+  static final ImmutableList<String> IMAGE_EXT = ImmutableList.of("jpg", "png", "jpeg");
 
   private static final Predicate<Path> FOLDER = java.nio.file.Files::isDirectory;
 
@@ -40,7 +39,8 @@ public class MoreMoreFiles {
   /**
    * case insensitive
    */
-  @VisibleForTesting static boolean anyExtensionMatches(Path path, Collection<String> extensions) {
+  @VisibleForTesting
+  static boolean anyExtensionMatches(Path path, Collection<String> extensions) {
     return extensions.stream().anyMatch(MoreFiles.getFileExtension(path)::equalsIgnoreCase);
   }
 
@@ -70,7 +70,7 @@ public class MoreMoreFiles {
    */
   public static int getNumberOfImageFiles(Path dir) {
     try {
-      return (int)Files.list(dir).filter(MoreMoreFiles::isImageType).count();
+      return (int) Files.list(dir).filter(MoreMoreFiles::isImageType).count();
     } catch (IOException e) {
       log.warn("Failed to list dir", e);
     }

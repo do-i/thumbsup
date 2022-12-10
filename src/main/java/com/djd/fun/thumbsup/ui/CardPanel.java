@@ -1,10 +1,5 @@
 package com.djd.fun.thumbsup.ui;
 
-import java.awt.CardLayout;
-
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-
 import com.djd.fun.thumbsup.annotations.PanelThumbs;
 import com.djd.fun.thumbsup.events.BackToThumbsViewEvent;
 import com.djd.fun.thumbsup.events.FocusBigImageViewEvent;
@@ -15,7 +10,9 @@ import com.djd.fun.thumbsup.events.tree.TreeNodeSelectEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
-
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +27,8 @@ public class CardPanel extends JPanel {
   private String visible = THUMB;
 
   @Inject
-  public CardPanel(EventBus eventBus, @PanelThumbs JScrollPane thumbsScrollPanel, BigImagePanel bigImagePanel) {
+  public CardPanel(EventBus eventBus, @PanelThumbs JScrollPane thumbsScrollPanel,
+      BigImagePanel bigImagePanel) {
     this.eventBus = eventBus;
     this.bigImagePanel = bigImagePanel;
     setLayout(new CardLayout());
@@ -63,7 +61,7 @@ public class CardPanel extends JPanel {
 
   @Override
   public CardLayout getLayout() {
-    return (CardLayout)super.getLayout();
+    return (CardLayout) super.getLayout();
   }
 
   private void switchView() {

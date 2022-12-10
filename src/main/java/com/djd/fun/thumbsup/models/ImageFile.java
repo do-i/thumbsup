@@ -5,10 +5,10 @@ import java.io.InputStream;
 import java.util.Arrays;
 
 /**
- * Wrapper of byte[] represents a compressed image file (jpg or png).
- * This class is immutable
+ * Wrapper of byte[] represents a compressed image file (jpg or png). This class is immutable
  */
 public class ImageFile {
+
   private final byte[] image;
 
   public ImageFile(byte[] image) {

@@ -1,15 +1,5 @@
 package com.djd.fun.thumbsup.ui;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.Border;
-import javax.swing.event.MouseInputAdapter;
-
 import com.djd.fun.thumbsup.annotations.BorderUnselected;
 import com.djd.fun.thumbsup.events.FolderSelectedEvent;
 import com.djd.fun.thumbsup.events.ImageSelectedEvent;
@@ -19,11 +9,19 @@ import com.djd.fun.thumbsup.util.Fonts;
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.event.MouseInputAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ThumbViewPanel extends JPanel {
+
   private static final Logger log = LoggerFactory.getLogger(ThumbViewPanel.class);
   private final EventBus eventBus;
   private final ThumbViewSize thumbViewSize;

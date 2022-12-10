@@ -1,18 +1,11 @@
 package com.djd.fun.thumbsup.ui;
 
+import com.djd.fun.thumbsup.annotations.LayoutBorder;
+import com.google.inject.Inject;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.LayoutManager;
-import java.awt.RenderingHints;
-
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
-
-import com.djd.fun.thumbsup.annotations.LayoutBorder;
-import com.djd.fun.thumbsup.util.Fonts;
-import com.google.inject.Inject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

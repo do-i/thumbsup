@@ -1,13 +1,9 @@
 package com.djd.fun.thumbsup;
 
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-
-import com.djd.fun.thumbsup.util.SizeFormatter;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-
-import static com.djd.fun.thumbsup.util.SizeFormatter.humanReadableByteCount;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 public class Main {
 

@@ -1,23 +1,17 @@
 package com.djd.fun.thumbsup.models;
 
+import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
-
-import com.google.inject.Inject;
-import com.google.inject.assistedinject.Assisted;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import net.coobird.thumbnailator.ThumbnailParameter;
 import net.coobird.thumbnailator.builders.ThumbnailParameterBuilder;
 import net.coobird.thumbnailator.filters.ImageFilter;
@@ -27,9 +21,12 @@ import net.coobird.thumbnailator.tasks.io.AbstractImageSource;
 import net.coobird.thumbnailator.util.exif.ExifFilterUtils;
 import net.coobird.thumbnailator.util.exif.ExifUtils;
 import net.coobird.thumbnailator.util.exif.Orientation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * This implementation was copied from {@link net.coobird.thumbnailator.tasks.io.InputStreamImageSource}
+ * This implementation was copied from
+ * {@link net.coobird.thumbnailator.tasks.io.InputStreamImageSource}
  * <p>
  * Main thing I changed was apply orientation filter before return.
  */
@@ -101,16 +98,16 @@ public class ByteInputStreamImageSource extends AbstractImageSource<InputStream>
 
     BufferedImage img = reader.read(FIRST_IMAGE_INDEX, irParam);
 
-		/*
+    /*
      * Dispose the reader to free resources.
-		 *
-		 * This seems to be one of the culprits which was causing
-		 * `OutOfMemoryError`s which began appearing frequently with
-		 * Java 7 Update 21.
-		 *
-		 * Issue:
-		 * http://code.google.com/p/thumbnailator/issues/detail?id=42
-		 */
+     *
+     * This seems to be one of the culprits which was causing
+     * `OutOfMemoryError`s which began appearing frequently with
+     * Java 7 Update 21.
+     *
+     * Issue:
+     * http://code.google.com/p/thumbnailator/issues/detail?id=42
+     */
     reader.dispose();
     iis.close();
     return finishedReading(orient(img, param.getImageFilters()));

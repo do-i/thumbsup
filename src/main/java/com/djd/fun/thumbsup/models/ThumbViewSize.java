@@ -1,10 +1,9 @@
 package com.djd.fun.thumbsup.models;
 
-import java.awt.Dimension;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import com.djd.fun.thumbsup.annotations.ThumbnailImageBoundSize;
 import com.google.common.collect.ImmutableList;
+import java.awt.Dimension;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Mutable size holder for thumbnail view port
@@ -12,6 +11,7 @@ import com.google.common.collect.ImmutableList;
  * @see ThumbnailImageBoundSize
  */
 public class ThumbViewSize {
+
   private static final int Y_DELTA = 28; // space for filename
   private static final ImmutableList<ImmutableSize> IMAGE_SIZES = ImmutableList.of(
       ImmutableSize.of(60, 55),
